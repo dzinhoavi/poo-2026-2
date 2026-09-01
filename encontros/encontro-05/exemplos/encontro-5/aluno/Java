@@ -1,0 +1,132 @@
+import java.util.Locale;
+import java.util.Scanner;
+
+class Produto {
+    int codigo;
+    double preco;
+
+    void exibir() {
+        System.out.println("Codigo: " + codigo + "|| Preço: " + preco);
+    }
+
+    void alterarPreco(double novoPreco) {
+        if (novoPreco <= 0) {
+            System.out.println("Invalido");
+        } else {
+            this.preco = novoPreco;
+            System.out.println("Preço alterado.");
+        }
+    }
+}
+
+public class CadastroProdutosObjetosInicial {
+    static final int MAX_PRODUTOS = 5;
+
+    public static void main(String[] args) {
+        Locale.setDefault(Locale.US);
+        Scanner entrada = new Scanner(System.in);
+        Produto[] produtos = new Produto[MAX_PRODUTOS];
+        int quantidade = 0;
+        int opcao;
+
+        do {
+            mostrarMenu();
+            opcao = entrada.nextInt();
+            switch (opcao) {
+                case 1:
+                    System.out.print("Digite o codigo do produto: ");
+                    int codigoDigitado = entrada.nextInt();
+
+                    System.out.print("Digite o preco do produto: ");
+                    double precoDigitado = entrada.nextDouble();
+
+                    quantidade = cadastrarProduto(produtos, quantidade, codigoDigitado, precoDigitado);
+                    break;
+                case 2:
+                    System.out.println("Digite o codigo: ");    
+                    int codigoConsulta = entrada.nextInt();
+
+                    consultarProduto(produtos, quantidade, codigoConsulta);
+                    break;
+                case 3:
+                    System.out.print("Digite o codigo do produto que deseja alterar o preco: ");
+                    int codigoAlterar = entrada.nextInt();
+                    
+                    // 1. Procuramos em qual gaveta (índice) o produto está
+                    int indiceAlterar = buscarIndicePorCodigo(produtos, quantidade, codigoAlterar);
+                    
+                    // 2. Verificamos se ele foi encontrado
+                    if (indiceAlterar != -1) {
+                        // Mostra o produto atual só para o usuário ver antes de mudar (opcional, mas recomendado)
+                        System.out.print("Produto atual: ");
+                        produtos[indiceAlterar].exibir();
+                        
+                        // Pede o novo preço
+                        System.out.print("Digite o novo preco: ");
+                        double novoPreco = entrada.nextDouble();
+                        
+                        // 3. Chama o método alterarPreco direto do objeto Produto encontrado
+                        produtos[indiceAlterar].alterarPreco(novoPreco);
+                    } else {
+                        System.out.println("Produto não encontrado.");
+                    }
+                    break;
+                case 4:
+                    // TODO: remover e atualizar quantidade.
+                    break;
+                case 5:
+                    listarProdutos(produtos, quantidade);
+                    break;
+                case 0:
+                    System.out.println("Programa encerrado.");
+                    break;
+                default:
+                    System.out.println("Opcao invalida.");
+            }
+        } while (opcao != 0);
+        entrada.close();
+    }
+
+    static void mostrarMenu() {
+        System.out.print("\n1-Cadastrar 2-Consultar 3-Alterar 4-Remover 5-Listar 0-Sair\nOpcao: ");
+    }
+
+    static int buscarIndicePorCodigo(Produto[] produtos, int quantidade, int codigo) {
+        for (int i = 0; i < quantidade; i++){
+            if (produtos[i].codigo == codigo){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    static int cadastrarProduto(Produto[] produtos, int quantidade, int codigo, double preco) {
+        if (quantidade >= produtos.length) {
+            System.out.println("Limite atingido");
+            return quantidade;
+        }
+
+        Produto produto = new Produto();
+        produto.codigo = codigo;
+        produto.preco = preco;
+        produtos[quantidade] = produto;
+        System.out.println("Cadastrado!");
+        return quantidade + 1;
+    }
+
+    static void consultarProduto(Produto[] produtos, int quantidade, int codigo) {
+        int indice = buscarIndicePorCodigo(produtos, quantidade, codigo);
+
+        if (indice != -1){
+            produtos[indice].exibir();
+            System.out.println("");
+        }
+    }
+
+    static int removerProduto(Produto[] produtos, int quantidade, int codigo) {
+        return quantidade;
+    }
+
+    static void listarProdutos(Produto[] produtos, int quantidade) {
+    }
+}
