@@ -6,11 +6,13 @@ Construir e executar um pedido interativo. `ItemPedido` usa um `Produto`; `Pedid
 
 ## Roteiro
 
-1. Abra `exemplos/encontro-7/aluno/ProjetoPedidoInicial.java`.
-2. Localize `Produto`, `ItemPedido`, `Pedido` e `main` antes de alterar qualquer linha.
-3. Em `ItemPedido`, leia o construtor e explique por que `this.produto = produto` guarda uma referência em vez de copiar o preço.
-4. Complete `alterarQuantidade` e `calcularSubtotal`. Compile; então use a opção 1 e confirme 16.50.
-5. Em `Pedido`, leia a criação interna de `ItemPedido` e complete as duas delegações. Compile novamente.
+O arquivo inicial abre o menu e **compila antes de ser preenchido**, mas as classes novas deste encontro são um esqueleto: os dez `TODO`s de `ItemPedido` e `Pedido` contêm as decisões que você deverá implementar. `Produto` está completo porque é a classe reutilizada do Projeto 1 — não é uma resposta deste encontro.
+
+1. Abra `exemplos/encontro-7/aluno/ProjetoPedidoInicial.java` e localize `Produto`, `ItemPedido`, `Pedido` e `main`.
+2. Em `ItemPedido`, complete os `TODO`s 1 a 5: atributos, construtor, validação da quantidade, subtotal e exibição. A referência ao produto deve ser guardada; não copie o preço.
+3. Em `Pedido`, complete os `TODO`s 6 a 10: atributos, criação interna do item, delegações e exibição final.
+4. Compile depois de cada etapa. Os retornos provisórios `false` e `0.0` existem apenas para o arquivo compilar antes de você preencher os métodos.
+5. Quando todos os `TODO`s estiverem resolvidos, use a opção 1 e confirme 16.50.
 6. Use a opção 2 para alterar o preço do mesmo objeto `cafe` para 6.00; confirme 18.00 sem alterar o item.
 7. Use a opção 3 para alterar a quantidade para 4; confirme 24.00.
 8. Tente preço 0 e quantidade 0; confirme que os valores válidos anteriores foram preservados.

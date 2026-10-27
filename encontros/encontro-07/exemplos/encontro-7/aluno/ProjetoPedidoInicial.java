@@ -1,12 +1,19 @@
 import java.util.Locale;
 import java.util.Scanner;
 
+// Classe reutilizada do Projeto 1: ela ja protege codigo e preco.
 class Produto {
     private final int codigo;
     private double preco;
-    Produto(int codigo, double preco) { this.codigo = codigo; this.preco = preco; }
+
+    Produto(int codigo, double preco) {
+        this.codigo = codigo;
+        this.preco = preco;
+    }
+
     int getCodigo() { return codigo; }
     double getPreco() { return preco; }
+
     boolean alterarPreco(double novoPreco) {
         if (novoPreco <= 0) return false;
         preco = novoPreco;
@@ -15,48 +22,46 @@ class Produto {
 }
 
 class ItemPedido {
-    private final Produto produto;
-    private int quantidade;
+    // TODO 1: declare os atributos que representam o produto escolhido e a quantidade.
+
     ItemPedido(Produto produto, int quantidade) {
-        // O vinculo por referencia fica visivel desde o inicio para ser rastreado.
-        this.produto = produto;
-        this.quantidade = quantidade;
+        // TODO 2: guarde a referencia recebida e a quantidade nos atributos desta classe.
     }
+
     boolean alterarQuantidade(int novaQuantidade) {
-        // TODO: recusar valor menor ou igual a zero e preservar a quantidade anterior.
+        // TODO 3: recuse valor menor ou igual a zero; em caso valido, atualize a quantidade.
         return false;
     }
+
     double calcularSubtotal() {
-        // TODO: consultar preco do produto e multiplicar pela quantidade.
+        // TODO 4: consulte o preco do Produto e calcule preco x quantidade.
         return 0.0;
     }
+
     void exibir() {
-        // A exibicao pronta ajuda a observar o efeito das implementacoes.
-        System.out.printf("Produto: %d | Preco: %.2f | Quantidade: %d | Subtotal: %.2f%n",
-                produto.getCodigo(), produto.getPreco(), quantidade, calcularSubtotal());
+        // TODO 5: mostre codigo, preco, quantidade e subtotal deste item.
     }
 }
 
 class Pedido {
-    private final int numero;
-    private final ItemPedido item;
+    // TODO 6: declare o numero do pedido e o ItemPedido que pertence a ele.
+
     Pedido(int numero, Produto produto, int quantidade) {
-        this.numero = numero;
-        // A criacao interna evidencia a composicao desta primeira versao.
-        this.item = new ItemPedido(produto, quantidade);
+        // TODO 7: guarde o numero e crie internamente o ItemPedido.
     }
+
     boolean alterarQuantidade(int novaQuantidade) {
-        // TODO: delegar a alteracao para ItemPedido.
+        // TODO 8: delegue a alteracao para o ItemPedido.
         return false;
     }
+
     double calcularTotal() {
-        // TODO: delegar o calculo para o item.
+        // TODO 9: delegue o calculo para o ItemPedido.
         return 0.0;
     }
+
     void exibir() {
-        System.out.println("Pedido: " + numero);
-        item.exibir();
-        System.out.printf("Total: %.2f%n", calcularTotal());
+        // TODO 10: mostre o numero, os dados do item e o total do pedido.
     }
 }
 
@@ -71,25 +76,38 @@ public class ProjetoPedidoInicial {
         Produto cafe = new Produto(101, 5.50);
         Pedido pedido = new Pedido(10, cafe, 3);
         int opcao;
+
         do {
             mostrarMenu();
             opcao = entrada.nextInt();
             switch (opcao) {
-                case 1: pedido.exibir(); break;
+                case 1:
+                    pedido.exibir();
+                    break;
                 case 2:
                     System.out.print("Novo preco: ");
-                    if (cafe.alterarPreco(entrada.nextDouble())) System.out.println("Preco alterado.");
-                    else System.out.println("O preco deve ser maior que zero.");
+                    if (cafe.alterarPreco(entrada.nextDouble())) {
+                        System.out.println("Preco alterado.");
+                    } else {
+                        System.out.println("O preco deve ser maior que zero.");
+                    }
                     break;
                 case 3:
                     System.out.print("Nova quantidade: ");
-                    if (pedido.alterarQuantidade(entrada.nextInt())) System.out.println("Quantidade alterada.");
-                    else System.out.println("A quantidade deve ser maior que zero.");
+                    if (pedido.alterarQuantidade(entrada.nextInt())) {
+                        System.out.println("Quantidade alterada.");
+                    } else {
+                        System.out.println("A quantidade deve ser maior que zero.");
+                    }
                     break;
-                case 0: System.out.println("Programa encerrado."); break;
-                default: System.out.println("Opcao invalida.");
+                case 0:
+                    System.out.println("Programa encerrado.");
+                    break;
+                default:
+                    System.out.println("Opcao invalida.");
             }
         } while (opcao != 0);
+
         entrada.close();
     }
 }
